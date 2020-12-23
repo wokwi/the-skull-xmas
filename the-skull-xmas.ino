@@ -74,14 +74,14 @@ void sleep() {
 void beep(int freq, long ms) {
   long baseDelay = 1000000L / freq;
   long iterations = (ms * 1000) / (baseDelay * 2);
-  digitalWrite(led1Pin, HIGH);
+  digitalWrite(led2Pin, HIGH);
   for (int i = 0; i < iterations; i++) {
     digitalWrite(buzzerPin, HIGH);
     delayMicroseconds(baseDelay + i);
     digitalWrite(buzzerPin, LOW);
     delayMicroseconds(baseDelay + i);
   }
-  digitalWrite(led1Pin, LOW);
+  digitalWrite(led2Pin, LOW);
 }
 
 void setup() {
@@ -115,5 +115,12 @@ void loop() {
     }
   }
 
-  beep(10000, 200);
+  for (int i = 0; i < 1000; i++) {
+    analogWrite(led1Pin, 250 - (i / 4));
+    digitalWrite(buzzerPin, HIGH);
+    delayMicroseconds(100 + i);
+    digitalWrite(buzzerPin, LOW);
+    delayMicroseconds(100 + i);
+  }
+  digitalWrite(led1Pin, LOW);
 }
